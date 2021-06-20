@@ -1,0 +1,40 @@
+﻿<Page x:Class="NameCompany.AgentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NameCompany"
+      mc:Ignorable="d" 
+      d:DesignHeight="482" d:DesignWidth="894"
+      Title="AgentPage" FontFamily="Comic Sans MS" IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Агенты" VerticalAlignment="Top" Height="61" Width="874" TextAlignment="Center" FontSize="40" />
+        <DataGrid x:Name="DataGridBase" HorizontalAlignment="Left" Height="341" Margin="10,76,0,0" VerticalAlignment="Top" Width="874" AutoGenerateColumns="False"> 
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID Агента" Binding="{Binding ID_Агента}"  Width="25"/>
+                <DataGridTextColumn Header="Тип агента" Binding="{Binding Тип_агента}"/>
+                <DataGridTextColumn Header="Наименование агента" Binding="{Binding Наименование_агента}"/>
+                <DataGridTextColumn Header="Электронная почта агента" Binding="{Binding Электронная_почта_агента}" />
+                <DataGridTextColumn Header="Телефон агента" Binding="{Binding Телефон_агента}"/>
+                <DataGridTextColumn Header="Логотип агента" Binding="{Binding Логотип_агента}"/>
+                <DataGridTextColumn Header="Юридический адрес" Binding="{Binding Юридический_адрес}"/>
+                <DataGridTextColumn Header="Приоритет" Binding="{Binding Приоритет}"/>
+                <DataGridTextColumn Header="Директор" Binding="{Binding Директор}"/>
+                <DataGridTextColumn Header="ИНН" Binding="{Binding ИНН}"/>
+                <DataGridTextColumn Header="КПП" Binding="{Binding КПП}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="EditButton_Click" x:Name="EditButton" Content="Редактировать" BorderThickness="0" Background="#F9969E" FontSize="16"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+         </DataGrid>
+         <Button Click="AddAgent_Click" x:Name="AddButton" Content="Добавить" HorizontalAlignment="Left" Margin="272,422,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+        <Button Click="DeleteButton_Click" x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="444,422,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+
+    </Grid>
+</Page>
