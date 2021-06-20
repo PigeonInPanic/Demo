@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище BaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Агенты">
+    <Key>
+      <PropertyRef Name="ID Агента" />
+    </Key>
+    <Property Name="ID Агента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Тип агента" Type="varchar(max)" Nullable="false" />
+    <Property Name="Наименование агента" Type="varchar(max)" Nullable="false" />
+    <Property Name="Электронная почта агента" Type="varchar(max)" Nullable="false" />
+    <Property Name="Телефон агента" Type="varchar(max)" Nullable="false" />
+    <Property Name="Логотип агента" Type="binary" MaxLength="50" Nullable="false" />
+    <Property Name="Юридический адрес" Type="varchar(max)" Nullable="false" />
+    <Property Name="Приоритет" Type="int" Nullable="false" />
+    <Property Name="Директор" Type="varchar(max)" Nullable="false" />
+    <Property Name="ИНН" Type="float" Nullable="false" />
+    <Property Name="КПП" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Накладные">
+    <Key>
+      <PropertyRef Name="ID Накладной" />
+    </Key>
+    <Property Name="ID Накладной" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID Продукции" Type="int" Nullable="false" />
+    <Property Name="Количество" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Поставка">
+    <Key>
+      <PropertyRef Name="ID Поставки" />
+    </Key>
+    <Property Name="ID Поставки" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID Склада" Type="int" />
+    <Property Name="ID Агента" Type="int" />
+    <Property Name="ID Накладной" Type="int" />
+    <Property Name="Дата поставки" Type="date" />
+  </EntityType>
+  <EntityType Name="Продукция">
+    <Key>
+      <PropertyRef Name="ID Продукции" />
+    </Key>
+    <Property Name="ID Продукции" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование продукции" Type="varchar(max)" Nullable="false" />
+    <Property Name="Тип продукции" Type="varchar(max)" Nullable="false" />
+    <Property Name="Артикул" Type="int" Nullable="false" />
+    <Property Name="Количество человек для производства" Type="int" Nullable="false" />
+    <Property Name="Номер цеха производства" Type="int" Nullable="false" />
+    <Property Name="Минимальная цена для агента" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Реализация">
+    <Key>
+      <PropertyRef Name="ID Реализации" />
+    </Key>
+    <Property Name="ID Реализации" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID Поставки" Type="int" />
+    <Property Name="ID Агента" Type="int" />
+    <Property Name="Продукция" Type="varchar(max)" Nullable="false" />
+    <Property Name="Наименование агента" Type="varchar(max)" Nullable="false" />
+    <Property Name="Дата реализации" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Количество продукции" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Склад">
+    <Key>
+      <PropertyRef Name="ID Склада" />
+    </Key>
+    <Property Name="ID Склада" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="varchar(max)" />
+    <Property Name="Адрес" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK_Накладные_Продукция">
+    <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
+    <End Role="Накладные" Type="Self.Накладные" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Продукция">
+        <PropertyRef Name="ID Продукции" />
+      </Principal>
+      <Dependent Role="Накладные">
+        <PropertyRef Name="ID Продукции" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Поставка_Агенты">
+    <End Role="Агенты" Type="Self.Агенты" Multiplicity="0..1" />
+    <End Role="Поставка" Type="Self.Поставка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Агенты">
+        <PropertyRef Name="ID Агента" />
+      </Principal>
+      <Dependent Role="Поставка">
+        <PropertyRef Name="ID Агента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Поставка_Накладные">
+    <End Role="Накладные" Type="Self.Накладные" Multiplicity="0..1" />
+    <End Role="Поставка" Type="Self.Поставка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Накладные">
+        <PropertyRef Name="ID Накладной" />
+      </Principal>
+      <Dependent Role="Поставка">
+        <PropertyRef Name="ID Накладной" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Поставка_Склад">
+    <End Role="Склад" Type="Self.Склад" Multiplicity="0..1" />
+    <End Role="Поставка" Type="Self.Поставка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Склад">
+        <PropertyRef Name="ID Склада" />
+      </Principal>
+      <Dependent Role="Поставка">
+        <PropertyRef Name="ID Склада" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Реализация_Агенты">
+    <End Role="Агенты" Type="Self.Агенты" Multiplicity="0..1" />
+    <End Role="Реализация" Type="Self.Реализация" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Агенты">
+        <PropertyRef Name="ID Агента" />
+      </Principal>
+      <Dependent Role="Реализация">
+        <PropertyRef Name="ID Агента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Реализация_Поставка">
+    <End Role="Поставка" Type="Self.Поставка" Multiplicity="0..1" />
+    <End Role="Реализация" Type="Self.Реализация" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Поставка">
+        <PropertyRef Name="ID Поставки" />
+      </Principal>
+      <Dependent Role="Реализация">
+        <PropertyRef Name="ID Поставки" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище BaseModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Агенты" EntityType="Self.Агенты" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Накладные" EntityType="Self.Накладные" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Поставка" EntityType="Self.Поставка" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Продукция" EntityType="Self.Продукция" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Реализация" EntityType="Self.Реализация" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Склад" EntityType="Self.Склад" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Накладные_Продукция" Association="Self.FK_Накладные_Продукция">
+      <End Role="Продукция" EntitySet="Продукция" />
+      <End Role="Накладные" EntitySet="Накладные" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Поставка_Агенты" Association="Self.FK_Поставка_Агенты">
+      <End Role="Агенты" EntitySet="Агенты" />
+      <End Role="Поставка" EntitySet="Поставка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Поставка_Накладные" Association="Self.FK_Поставка_Накладные">
+      <End Role="Накладные" EntitySet="Накладные" />
+      <End Role="Поставка" EntitySet="Поставка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Поставка_Склад" Association="Self.FK_Поставка_Склад">
+      <End Role="Склад" EntitySet="Склад" />
+      <End Role="Поставка" EntitySet="Поставка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Реализация_Агенты" Association="Self.FK_Реализация_Агенты">
+      <End Role="Агенты" EntitySet="Агенты" />
+      <End Role="Реализация" EntitySet="Реализация" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Реализация_Поставка" Association="Self.FK_Реализация_Поставка">
+      <End Role="Поставка" EntitySet="Поставка" />
+      <End Role="Реализация" EntitySet="Реализация" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

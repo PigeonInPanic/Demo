@@ -1,0 +1,45 @@
+﻿<Window x:Class="ListView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ListView"
+        mc:Ignorable="d"
+        Title="Name company" Height="650" Width="1076"  FontFamily="Comic Sans MS" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Попрыженок.png">
+    <Grid>
+        <Grid Margin="0,0,0,492" Background="#F9969E" Height="129" Width="1070" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <Image HorizontalAlignment="Left" Height="100" Margin="32,17,0,0" VerticalAlignment="Top" Width="100" Source="Попрыженок.png" />
+            <TextBlock HorizontalAlignment="Left" Margin="160,34,0,0" TextWrapping="Wrap" Text="Попрыженок" VerticalAlignment="Top" Height="61" Width="824" TextAlignment="Center" FontSize="40" />
+        </Grid>
+        <Grid Margin="0,0,909,0" Background="#43DCFE" Panel.ZIndex="-2" Height="621" Width="161" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button Content="Агенты" Name="AgentButton" HorizontalAlignment="Left" Margin="15,166,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+            <Button Content="Реализация" Name="RealiButton" HorizontalAlignment="Left" Margin="15,226,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+            <Button Content="Продукция" HorizontalAlignment="Left" Margin="15,286,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+            <Button Content="Поставка" Name="SupplyButton" HorizontalAlignment="Left" Margin="15,346,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+            <Button Content="Склад" HorizontalAlignment="Left" Margin="15,406,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+            <Button Content="Накладные" HorizontalAlignment="Left" Margin="15,466,0,0" VerticalAlignment="Top" Width="141" Height="34" BorderThickness="0" Background="#F9969E" FontSize="20"/>
+
+        </Grid>
+        <Frame x:Name="FrameDataBase" HorizontalAlignment="Left" Height="482" Margin="166,129,0,0" VerticalAlignment="Top" Width="894" NavigationUIVisibility="Hidden"/>
+        <ListView x:Name="ListViewBase" HorizontalAlignment="Left" Height="477" Margin="166,134,0,0" VerticalAlignment="Top" Width="894">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image Width="100" Height="150" Stretch="UniformToFill" HorizontalAlignment="Center" Margin="10" >
+                            <Image.Source>
+                                <Binding Path="ImagePreview">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>Resources/picture.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                        <TextBlock Text="{Binding ID_Агента}" VerticalAlignment="Center" TextAlignment="Center" Width="390" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5 5" FontSize ="20"/>
+                        <TextBlock Text="{Binding Наименование_агента}" VerticalAlignment="Center" TextAlignment="Center" Width="390" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5 5 5 15" FontSize ="20"/>
+                        <TextBlock Text="{Binding Телефон_агента}" VerticalAlignment="Center" TextAlignment="Center" Width="390" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5 5" FontSize ="20"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>

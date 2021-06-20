@@ -24,7 +24,7 @@ namespace NameCompany
         {
             InitializeComponent();
 
-            FrameDataBase.Navigate(new AgentPage());
+            FrameDataBase.Navigate(new AgentPageListView());
 
             Manager.FrameBase = FrameDataBase;
         }
@@ -41,7 +41,7 @@ namespace NameCompany
 
         private void AgentButton_Click(object sender, RoutedEventArgs e)
         {
-            Manager.FrameBase.Navigate(new AgentPage());
+            Manager.FrameBase.Navigate(new AgentPageListView());
         }
     }
 }
